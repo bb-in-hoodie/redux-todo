@@ -7,6 +7,8 @@ module.exports = {
     "plugin:react/recommended",
     "airbnb",
     "plugin:prettier/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -34,6 +36,25 @@ module.exports = {
       { exceptAfterSingleLine: true },
     ],
     "prettier/prettier": "error",
+    "import/order": [
+      "error",
+      {
+        groups: ["builtin", "external", ["parent", "sibling"], "index"],
+        pathGroups: [
+          {
+            pattern: "react",
+            group: "external",
+            position: "before",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["react"],
+        "newlines-between": "never",
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+      },
+    ],
   },
   settings: {
     "import/resolver": {
