@@ -1,0 +1,23 @@
+$common-gradient-dark-grey: linear-gradient(
+  45deg,
+  rgb(68, 68, 68),
+  rgb(85, 85, 85)
+);
+$common-gradient-ts-blue: linear-gradient(
+  45deg,
+  rgb(84, 152, 255),
+  rgb(112, 167, 255)
+);
+$common-color-almost-white: rgb(241, 241, 241);
+$common-color-lighter-grey: rgb(150, 150, 150);
+$common-color-light-grey: rgb(95, 95, 95);
+$common-color-dark-grey: rgb(76, 76, 76);
+$common-color-darker-grey: rgb(70, 70, 70);
+$common-color-ts-blue: rgb(84, 152, 255);
+$common-color-ts-blue-darker: rgb(48, 102, 182);
+$common-color-light-red: rgb(245, 138, 138);
+$common-color-dark-red: rgb(187, 74, 74);
+$common-color-shadow-black: rgba(0, 0, 0, 0.1);
+$common-color-shadow-black-darker: rgba(0, 0, 0, 0.2);
+
+$common-outline-focuesd-button-white: 2px solid $common-color-almost-white;
