@@ -37,7 +37,10 @@ router.get("/:name", async (req, res) => {
     } else {
       res
         .status(404)
-        .json({ error: `failed to find a todo list with the given name`, name });
+        .json({
+          error: `failed to find a todo list with the given name`,
+          name,
+        });
     }
   } catch (e) {
     res.status(500).json({
@@ -110,14 +113,12 @@ router.put("/:name", async (req, res) => {
   }
 
   const countByUpdatedName = await countTodoListByName(todoList.name);
-  if (name !== todoList.name) {
-    if (countByUpdatedName > 0) {
-      res.status(404).json({
-        error: `the updated name is already in use`,
-        updatedName: todoList.name,
-      });
-      return;
-    }
+  if (name !== todoList.name && countByUpdatedName > 0) {
+    res.status(404).json({
+      error: `the updated name is already in use`,
+      updatedName: todoList.name,
+    });
+    return;
   }
 
   try {
