@@ -9,12 +9,21 @@ export class TodoList {
 
   constructor(name: string) {
     const createdAt = new Date().toISOString();
-    
+
     this.name = name;
     this.createdAt = createdAt;
     this.lastModifiedAt = createdAt;
     this.todos = [];
     this.dones = [];
+  }
+
+  static validate(todoList?: TodoList) {
+    if (!todoList) {
+      return false;
+    }
+    
+    const { name, createdAt, lastModifiedAt, todos, dones } = todoList;
+    return name.trim() && createdAt && lastModifiedAt && todos && dones;
   }
 }
 
