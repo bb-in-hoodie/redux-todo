@@ -1,25 +1,32 @@
 import express from "express";
+import bodyParser from "body-parser";
 import { closeClient, getCollection } from "./db/mongo";
-import { TodoList } from "./types/todoList";
+import todoListRouter from "./routers/todoListRouter";
 
 const app = express();
 const port = 3000;
 
 app.listen(port, () => {
-  console.log(`Timezones by location application is running on port ${port}.`);
+  console.log(`timezones by location application is running on port ${port}.`);
 });
 
-app.get("/", async (req, res) => {
-  const collection = await getCollection();
-  res.json({ message: "OK" });
+// middlewares
+app.use(bodyParser.json()); // parsing application/json
+
+// register routers
+app.use("/todo-lists", todoListRouter);
+
+// fallback
+app.get("*", (_, res) => {
+  res.status(404).send({ error: "invalid request" });
 });
 
 // close MongoClient when shutting down the app (https://stackoverflow.com/a/63419186/6864219)
 const cleanup = async () => {
-  console.log('Cleaning up');
+  console.log("cleaning up");
   await closeClient();
   process.exit();
-}
+};
 
-process.on('SIGINT', cleanup); // Interrupt from keyboard
-process.on('SIGTERM', cleanup); // Termination signal
+process.on("SIGINT", cleanup); // Interrupt from keyboard
+process.on("SIGTERM", cleanup); // Termination signal
