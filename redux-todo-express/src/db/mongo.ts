@@ -27,12 +27,12 @@ export async function closeClient() {
   }
 }
 
-export async function getCollection() {
+export async function getCollection(collectionName = DEFAULT_COLLECTION) {
   // if no collection is fetched yet, read one from db
   if (!todoCollection) {
     const client = await getClient();
     reduxTodoDb = client.db("redux-todo");
-    todoCollection = reduxTodoDb.collection(DEFAULT_COLLECTION);
+    todoCollection = reduxTodoDb.collection(collectionName);
   }
 
   // if there is no todo list at all, create one
