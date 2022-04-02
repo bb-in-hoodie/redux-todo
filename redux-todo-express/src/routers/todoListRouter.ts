@@ -18,6 +18,9 @@ function trimName(name?: string) {
 /**
  * preceeding path: "/todo-lists"
  */
+
+// GET "/todo-lists/{name}"
+// - find a todo list by the given name
 router.get("/:name", async (req, res) => {
   const name = trimName(req.params.name);
 
@@ -44,6 +47,8 @@ router.get("/:name", async (req, res) => {
   }
 });
 
+// POST "/todo-lists/{name}"
+// - create a new todo list with the given name
 router.post("/:name", async (req, res) => {
   const name = trimName(req.params.name);
 
@@ -73,6 +78,9 @@ router.post("/:name", async (req, res) => {
   }
 });
 
+// PUT "/todo-lists/{name}"
+// - body: TodoList
+// - update a todo list
 router.put("/:name", async (req, res) => {
   const name = trimName(req.params.name);
 
@@ -133,6 +141,8 @@ router.put("/:name", async (req, res) => {
   }
 });
 
+// DELETE "/todo-lists/{name}"
+// - delete a todo list with the given name
 router.delete("/:name", async (req, res) => {
   const name = trimName(req.params.name);
 
