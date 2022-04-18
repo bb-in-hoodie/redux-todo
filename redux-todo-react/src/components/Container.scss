@@ -10,31 +10,31 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 4px 4px 12px $common-color-shadow-black-darker;
-}
 
-header {
-  display: flex;
-  height: 56px;
-  box-sizing: border-box;
-  overflow: hidden;
-  align-items: center;
-  background: $common-gradient-dark-grey;
-  box-shadow: 0 2px 8px $common-color-shadow-black;
-  border-radius: 10px 10px 0 0;
-}
-
-.logo {
-  margin: -10px 0 0 -10px;
-  font-size: 58pt;
-  font-weight: 700;
-  white-space: nowrap;
-  background: $common-gradient-ts-blue;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-main {
-  padding: 24px 16px;
-  flex: 1 1;
+  header {
+    display: flex;
+    height: 56px;
+    box-sizing: border-box;
+    overflow: hidden;
+    align-items: center;
+    background: $common-gradient-dark-grey;
+    box-shadow: 0 2px 8px $common-color-shadow-black;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .logo {
+    margin: -10px 0 0 -10px;
+    font-size: 58pt;
+    font-weight: 700;
+    white-space: nowrap;
+    background: $common-gradient-ts-blue;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  main {
+    padding: 24px 16px;
+    flex: 1 1;
+  }
 }

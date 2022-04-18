@@ -1,8 +1,19 @@
-ul {
-  display: flex;
-  flex-direction: column;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  gap: 12px;
+@import "../styles/common.scss";
+
+.todo-list {
+  .title {
+    margin: 0 0 8px 0;
+    font-size: 11pt;
+    font-weight: 500;
+    color: $common-color-lighter-grey;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin: 0 0 24px 0;
+    padding: 0;
+    gap: 12px;
+  }
 }

@@ -1,108 +1,108 @@
 @import "../styles/common.scss";
 
-li {
+.todo-item {
   display: flex;
   height: 36px;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-}
 
-.main-wrapper {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  flex: 1 1;
-  gap: 8px;
-  padding: 0 8px 0 12px;
-  border-radius: 4px;
-  background: $common-color-dark-grey;
-  color: $common-color-almost-white;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.item-done {
-  flex: none;
-  width: 14px;
-  height: 14px;
-  margin: 0;
-  padding: 0;
-  border: 1px solid $common-color-almost-white;
-  background-color: transparent;
-  appearance: none;
-
-  &:checked {
-    background-color: $common-color-almost-white;
+  .main-wrapper {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    flex: 1 1;
+    gap: 8px;
+    padding: 0 8px 0 12px;
+    border-radius: 4px;
+    background: $common-color-dark-grey;
+    color: $common-color-almost-white;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
 
-  &:active {
-    background-color: $common-color-light-grey;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &:focus-visible {
-    outline: 2px solid $common-color-ts-blue;
-  }
-}
-
-.item-content {
-  flex: 1 1;
-  padding: 2px 4px;
-  font-size: 11pt;
-  font-weight: 400;
-  line-height: 100%;
-
-  &:focus {
-    outline: 2px solid $common-color-ts-blue;
-    border-radius: 2px;
-  }
-}
-
-.button-group {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  background-color: $common-color-light-grey;
-  border-radius: 50%;
-  border: none;
-  font-size: 14pt;
-  color: $common-color-almost-white;
-
-  &:focus-visible {
-    outline: $common-outline-focuesd-button-white;
-  }
-
-  &:active {
-    background-color: $common-color-darker-grey;
-  }
-
-  &.remove-item {
+  .item-done {
+    flex: none;
     width: 14px;
     height: 14px;
-    color: $common-color-light-red;
+    margin: 0;
+    padding: 0;
+    border: 1px solid $common-color-almost-white;
+    background-color: transparent;
+    appearance: none;
+
+    &:checked {
+      background-color: $common-color-almost-white;
+    }
 
     &:active {
-      background-color: transparent;
-      color: $common-color-dark-red;
+      background-color: $common-color-light-grey;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $common-color-ts-blue;
     }
   }
-}
 
-.button-icon {
-  transform: scaleY(50%);
+  .item-content {
+    flex: 1 1;
+    padding: 2px 4px;
+    font-size: 11pt;
+    font-weight: 400;
+    line-height: 100%;
 
-  &.taller {
-    transform: scaleY(80%) translateY(-1px);
+    &:focus {
+      outline: 2px solid $common-color-ts-blue;
+      border-radius: 2px;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    background-color: $common-color-light-grey;
+    border-radius: 50%;
+    border: none;
+    font-size: 14pt;
+    color: $common-color-almost-white;
+
+    &:focus-visible {
+      outline: $common-outline-focuesd-button-white;
+    }
+
+    &:active {
+      background-color: $common-color-darker-grey;
+    }
+
+    &.remove-item {
+      width: 14px;
+      height: 14px;
+      color: $common-color-light-red;
+
+      &:active {
+        background-color: transparent;
+        color: $common-color-dark-red;
+      }
+    }
+  }
+
+  .button-icon {
+    transform: scaleY(50%);
+
+    &.taller {
+      transform: scaleY(80%) translateY(-1px);
+    }
   }
 }

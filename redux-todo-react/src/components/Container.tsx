@@ -10,7 +10,24 @@ function Container(): JSX.Element {
         <span className="logo">REDUX TODO</span>
       </header>
       <main>
-        <TodoList />
+        <TodoList
+          title="TODOS"
+          todos={[
+            {
+              uuid: "1",
+              content: "test",
+              createdAt: new Date(),
+              lastModifiedAt: new Date(),
+            },
+            {
+              uuid: "2",
+              content: "test",
+              createdAt: new Date(),
+              lastModifiedAt: new Date(),
+            },
+          ]}
+        />
+        <TodoList title="DONES" todos={[]} />
       </main>
       <AddTodo />
     </div>

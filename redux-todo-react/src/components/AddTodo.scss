@@ -16,45 +16,45 @@ $inner-border-radius: 3px;
   * {
     box-sizing: border-box;
   }
-}
 
-input {
-  flex: 1 1;
-  padding: 0 8px;
-  height: $inner-height;
-  font-size: 11pt;
-  border: none;
-  border-radius: $inner-border-radius;
-  background-color: $common-color-light-grey;
-  color: $common-color-almost-white;
+  input {
+    flex: 1 1;
+    padding: 0 8px;
+    height: $inner-height;
+    font-size: 11pt;
+    border: none;
+    border-radius: $inner-border-radius;
+    background-color: $common-color-light-grey;
+    color: $common-color-almost-white;
 
-  &:focus {
-    outline: 2px solid $common-color-ts-blue;
-  }
-}
-
-.button-wrapper {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  height: $inner-height;
-}
-
-button.add {
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  background-color: $common-color-ts-blue;
-  color: $common-color-almost-white;
-  font-size: 18pt;
-  font-weight: 500;
-
-  &:focus-visible {
-    outline: $common-outline-focuesd-button-white;
+    &:focus {
+      outline: 2px solid $common-color-ts-blue;
+    }
   }
 
-  &:active {
-    background-color: $common-color-ts-blue-darker;
+  .button-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    height: $inner-height;
+  }
+
+  button.add {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background-color: $common-color-ts-blue;
+    color: $common-color-almost-white;
+    font-size: 18pt;
+    font-weight: 500;
+
+    &:focus-visible {
+      outline: $common-outline-focuesd-button-white;
+    }
+
+    &:active {
+      background-color: $common-color-ts-blue-darker;
+    }
   }
 }
