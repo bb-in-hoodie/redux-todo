@@ -1,33 +1,21 @@
 import React from "react";
+import { useAppSelector } from "../redux/hooks";
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
 import "./Container.scss";
 
 function Container(): JSX.Element {
+  const todos = useAppSelector((state) => state.todoList.todos);
+  const dones = useAppSelector((state) => state.todoList.dones);
+
   return (
     <div className="container">
       <header>
         <span className="logo">REDUX TODO</span>
       </header>
       <main>
-        <TodoList
-          title="TODOS"
-          todos={[
-            {
-              uuid: "1",
-              content: "test",
-              createdAt: new Date(),
-              lastModifiedAt: new Date(),
-            },
-            {
-              uuid: "2",
-              content: "test",
-              createdAt: new Date(),
-              lastModifiedAt: new Date(),
-            },
-          ]}
-        />
-        <TodoList title="DONES" todos={[]} />
+        <TodoList title="TODOS" todos={todos} />
+        <TodoList title="DONES" todos={dones} />
       </main>
       <AddTodo />
     </div>

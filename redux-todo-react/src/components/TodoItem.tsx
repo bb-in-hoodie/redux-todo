@@ -1,13 +1,18 @@
 import React from "react";
+import { Todo } from "../types/todo";
 import "./TodoItem.scss";
 
-function TodoItem(): JSX.Element {
+export type TodoItemProps = {
+  todo: Todo;
+};
+
+function TodoItem({ todo }: TodoItemProps): JSX.Element {
   return (
-    <li>
+    <li className="todo-item">
       <div className="main-wrapper">
         <input type="checkbox" className="item-done" name="done" id="done" />
         <div className="item-content" contentEditable>
-          이것은 TODO Item 입니다.
+          {todo.content}
         </div>
         <div className="button-group">
           <button type="button">
