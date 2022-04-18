@@ -1,0 +1,21 @@
+@import "../styles/common.scss";
+
+.todo-placeholder {
+  display: flex;
+  justify-content: space-between;
+  width: 402px;
+  height: 36px;
+  align-items: center;
+  padding: 0 8px 0 12px;
+  border-radius: 4px;
+  border: 1px dashed $common-color-dark-grey;
+  color: $common-color-lighter-grey;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+  .message {
+    font-size: 11pt;
+    font-weight: 400;
+    line-height: 100%;
+    font-style: italic;
+  }
+}
