@@ -45,7 +45,7 @@ $inner-border-radius: 3px;
     border: none;
     border-radius: 50%;
     background-color: $common-color-ts-blue;
-    color: $common-color-almost-white;
+    color: $common-color-light-grey;
     font-size: 18pt;
     font-weight: 500;
 
@@ -55,6 +55,10 @@ $inner-border-radius: 3px;
 
     &:active {
       background-color: $common-color-ts-blue-darker;
+    }
+
+    &[disabled] {
+      background-color: $common-color-darker-grey;
     }
   }
 }

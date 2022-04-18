@@ -11,7 +11,11 @@ function TodoItem({ todo }: TodoItemProps): JSX.Element {
     <li className="todo-item">
       <div className="main-wrapper">
         <input type="checkbox" className="item-done" name="done" id="done" />
-        <div className="item-content" contentEditable>
+        <div
+          className="item-content"
+          contentEditable
+          suppressContentEditableWarning
+        >
           {todo.content}
         </div>
         <div className="button-group">
