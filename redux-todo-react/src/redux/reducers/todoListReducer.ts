@@ -20,10 +20,23 @@ const todoListSlice = createSlice({
     setDones: (state, action) => {
       state.dones = action.payload;
     },
+    addTodo: (state, action) => {
+      state.todos.push(action.payload);
+    },
+    addDone: (state, action) => {
+      state.dones.push(action.payload);
+    },
   },
 });
 
 const { actions, reducer } = todoListSlice;
-export const { setName, setCreatedAt, setLastModifiedAt, setTodos, setDones } =
-  actions;
+export const {
+  setName,
+  setCreatedAt,
+  setLastModifiedAt,
+  setTodos,
+  setDones,
+  addTodo,
+  addDone,
+} = actions;
 export default reducer;
