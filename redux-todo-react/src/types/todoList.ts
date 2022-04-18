@@ -6,23 +6,23 @@ export class TodoList {
 
   uuid: string;
   name: string;
-  createdAt: Date;
-  lastModifiedAt: Date;
+  createdAt: string;
+  lastModifiedAt: string;
   todos: Todo[];
   dones: Todo[];
 
   constructor(
     uuid: string,
     name: string,
-    createdAtIsoString: string,
-    lastModifiedAtIsoString: string,
+    createdAt: string,
+    lastModifiedAt: string,
     todos: Todo[],
     dones: Todo[]
   ) {
     this.uuid = uuid;
     this.name = name;
-    this.createdAt = new Date(createdAtIsoString);
-    this.lastModifiedAt = new Date(lastModifiedAtIsoString);
+    this.createdAt = createdAt;
+    this.lastModifiedAt = lastModifiedAt;
     this.todos = todos;
     this.dones = dones;
   }

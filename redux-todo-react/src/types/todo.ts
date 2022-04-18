@@ -3,22 +3,24 @@ import { v4 as uuidV4 } from "uuid";
 export class Todo {
   uuid: string;
   content: string;
-  createdAt: Date;
-  lastModifiedAt: Date;
+  createdAt: string;
+  lastModifiedAt: string;
 
   constructor(
     uuid: string,
     content: string,
-    createdAtIsoString: string,
-    lastModifiedAtIsoString: string
+    createdAt: string,
+    lastModifiedAt: string
   ) {
     this.uuid = uuid;
     this.content = content;
-    this.createdAt = new Date(createdAtIsoString);
-    this.lastModifiedAt = new Date(lastModifiedAtIsoString);
+    this.createdAt = createdAt;
+    this.lastModifiedAt = lastModifiedAt;
   }
 
   static createTodo(content: string) {
     const uuid = uuidV4();
+    const now = new Date().toISOString();
+    return new Todo(uuid, content, now, now);
   }
 }
