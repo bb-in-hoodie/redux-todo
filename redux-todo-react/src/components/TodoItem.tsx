@@ -1,6 +1,11 @@
 import React from "react";
 import { useAppDispatch } from "../redux/hooks";
-import { setAsDone, setAsTodo } from "../redux/reducers/todoListReducer";
+import {
+  removeDone,
+  removeTodo,
+  setAsDone,
+  setAsTodo,
+} from "../redux/reducers/todoListReducer";
 import { Todo } from "../types/todo";
 import "./TodoItem.scss";
 
@@ -18,6 +23,14 @@ function TodoItem({ todo, isDone }: TodoItemProps): JSX.Element {
       dispatch(setAsTodo(todo));
     } else {
       dispatch(setAsDone(todo));
+    }
+  };
+
+  const handleDeleteClick = () => {
+    if (isDone) {
+      dispatch(removeDone(todo));
+    } else {
+      dispatch(removeTodo(todo));
     }
   };
 
@@ -49,7 +62,7 @@ function TodoItem({ todo, isDone }: TodoItemProps): JSX.Element {
           </button>
         </div>
       </div>
-      <button type="button" className="remove-item">
+      <button type="button" className="remove-item" onClick={handleDeleteClick}>
         <span className="button-icon taller">x</span>
       </button>
     </li>
