@@ -16,8 +16,14 @@ function TodoList({ title, todos, isDone }: TodoListProps): JSX.Element {
       <h3 className="title">{title}</h3>
       {todos.length > 0 && (
         <ul>
-          {todos.map((todo) => (
-            <TodoItem key={todo.uuid} todo={todo} isDone={isDone} />
+          {todos.map((todo, index) => (
+            <TodoItem
+              key={todo.uuid}
+              todo={todo}
+              isDone={isDone}
+              index={index}
+              totalLength={todos.length}
+            />
           ))}
         </ul>
       )}

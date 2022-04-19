@@ -92,6 +92,13 @@
       background-color: $common-color-darker-grey;
     }
 
+    &.move-item {
+      &[disabled] {
+        color: $common-color-light-grey;
+        background-color: $common-color-semi-dark-grey;
+      }
+    }
+
     &.remove-item {
       width: 14px;
       height: 14px;

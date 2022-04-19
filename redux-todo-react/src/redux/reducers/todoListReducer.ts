@@ -52,6 +52,14 @@ const todoListSlice = createSlice({
       );
       state.dones.splice(indexToRemove, 1);
     },
+    moveTodo: (state, action) => {
+      const { todo, amount } = action.payload;
+      const indexToMove = state.todos.findIndex(
+        (todoEl) => todoEl.uuid === todo.uuid
+      );
+      state.todos.splice(indexToMove, 1); // remove
+      state.todos.splice(indexToMove + amount, 0, todo); // insert
+    },
   },
 });
 
@@ -68,5 +76,6 @@ export const {
   setAsTodo,
   removeTodo,
   removeDone,
+  moveTodo,
 } = actions;
 export default reducer;
