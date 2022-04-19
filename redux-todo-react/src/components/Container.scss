@@ -35,6 +35,7 @@
   
   main {
     padding: 24px 16px;
-    flex: 1 1;
+    flex: auto;
+    overflow: hidden scroll;
   }
 }
