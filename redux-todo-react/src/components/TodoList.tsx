@@ -7,16 +7,17 @@ import TodoPlaceholder from "./TodoPlaceholder";
 export type TodoListProps = {
   title: string;
   todos: Todo[];
+  isDone: boolean;
 };
 
-function TodoList({ title, todos }: TodoListProps): JSX.Element {
+function TodoList({ title, todos, isDone }: TodoListProps): JSX.Element {
   return (
     <div className="todo-list">
       <h3 className="title">{title}</h3>
       {todos.length > 0 && (
         <ul>
           {todos.map((todo) => (
-            <TodoItem key={todo.uuid} todo={todo} />
+            <TodoItem key={todo.uuid} todo={todo} isDone={isDone} />
           ))}
         </ul>
       )}

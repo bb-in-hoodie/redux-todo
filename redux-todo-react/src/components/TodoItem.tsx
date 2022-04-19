@@ -1,16 +1,38 @@
 import React from "react";
+import { useAppDispatch } from "../redux/hooks";
+import { setAsDone, setAsTodo } from "../redux/reducers/todoListReducer";
 import { Todo } from "../types/todo";
 import "./TodoItem.scss";
 
 export type TodoItemProps = {
   todo: Todo;
+  isDone: boolean;
 };
 
-function TodoItem({ todo }: TodoItemProps): JSX.Element {
+function TodoItem({ todo, isDone }: TodoItemProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const handleCheckboxClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isDone) {
+      dispatch(setAsTodo(todo));
+    } else {
+      dispatch(setAsDone(todo));
+    }
+  };
+
   return (
     <li className="todo-item">
       <div className="main-wrapper">
-        <input type="checkbox" className="item-done" name="done" id="done" />
+        <input
+          type="checkbox"
+          className="item-done"
+          name="done"
+          id="done"
+          checked={isDone}
+          onClick={handleCheckboxClick}
+          readOnly
+        />
         <div
           className="item-content"
           contentEditable

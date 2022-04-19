@@ -14,8 +14,8 @@ function Container(): JSX.Element {
         <span className="logo">REDUX TODO</span>
       </header>
       <main>
-        <TodoList title="TODOS" todos={todos} />
-        <TodoList title="DONES" todos={dones} />
+        <TodoList title="TODOS" todos={todos} isDone={false} />
+        <TodoList title="DONES" todos={dones} isDone />
       </main>
       <AddTodo />
     </div>

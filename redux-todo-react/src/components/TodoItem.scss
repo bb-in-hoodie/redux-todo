@@ -21,25 +21,31 @@
   }
 
   .item-done {
+    display: flex;
     flex: none;
     width: 14px;
     height: 14px;
     margin: 0;
     padding: 0;
-    border: 1px solid $common-color-almost-white;
+    border: 2px solid $common-color-dark-grey;
+    outline: 1px solid $common-color-almost-white;
     background-color: transparent;
     appearance: none;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 
     &:checked {
-      background-color: $common-color-almost-white;
+      &::before {
+        content: "✓";
+        color: $common-color-almost-white;
+        font-weight: 700;
+        font-size: 16pt;
+      }
     }
 
     &:active {
       background-color: $common-color-light-grey;
-    }
-
-    &:focus {
-      outline: none;
     }
 
     &:focus-visible {

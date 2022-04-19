@@ -26,6 +26,32 @@ const todoListSlice = createSlice({
     addDone: (state, action) => {
       state.dones.push(action.payload);
     },
+    setAsDone: (state, action) => {
+      const indexToRemove = state.todos.findIndex(
+        (todo) => todo.uuid === action.payload.uuid
+      );
+      state.todos.splice(indexToRemove, 1);
+      state.dones.push(action.payload);
+    },
+    setAsTodo: (state, action) => {
+      const indexToRemove = state.dones.findIndex(
+        (todo) => todo.uuid === action.payload.uuid
+      );
+      state.dones.splice(indexToRemove, 1);
+      state.todos.push(action.payload);
+    },
+    removeTodo: (state, action) => {
+      const indexToRemove = state.todos.findIndex(
+        (todo) => todo.uuid === action.payload.uuid
+      );
+      state.todos.splice(indexToRemove, 1);
+    },
+    removeDone: (state, action) => {
+      const indexToRemove = state.dones.findIndex(
+        (todo) => todo.uuid === action.payload.uuid
+      );
+      state.dones.splice(indexToRemove, 1);
+    },
   },
 });
 
@@ -38,5 +64,9 @@ export const {
   setDones,
   addTodo,
   addDone,
+  setAsDone,
+  setAsTodo,
+  removeTodo,
+  removeDone,
 } = actions;
 export default reducer;
