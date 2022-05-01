@@ -26,6 +26,18 @@ const todoListSlice = createSlice({
     addDone: (state, action) => {
       state.dones.push(action.payload);
     },
+    updateTodo: (state, action) => {
+      const index = state.todos.findIndex(
+        (todo) => todo.uuid === action.payload.uuid
+      );
+      state.todos[index] = action.payload;
+    },
+    updateDone: (state, action) => {
+      const index = state.dones.findIndex(
+        (todo) => todo.uuid === action.payload.uuid
+      );
+      state.dones[index] = action.payload;
+    },
     setAsDone: (state, action) => {
       const indexToRemove = state.todos.findIndex(
         (todo) => todo.uuid === action.payload.uuid
@@ -72,6 +84,8 @@ export const {
   setDones,
   addTodo,
   addDone,
+  updateTodo,
+  updateDone,
   setAsDone,
   setAsTodo,
   removeTodo,

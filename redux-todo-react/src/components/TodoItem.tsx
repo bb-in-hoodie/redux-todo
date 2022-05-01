@@ -6,6 +6,8 @@ import {
   removeTodo,
   setAsDone,
   setAsTodo,
+  updateDone,
+  updateTodo,
 } from "../redux/reducers/todoListReducer";
 import { Todo } from "../types/todo";
 import "./TodoItem.scss";
@@ -42,6 +44,32 @@ function TodoItem({
     }
   };
 
+  const updateContent = (e: React.FocusEvent<HTMLDivElement, Element>) => {
+    const trimmedContent = e.currentTarget.innerText.trim();
+    const isContentUpdated =
+      trimmedContent.length > 0 && trimmedContent !== todo.content;
+
+    // update todo if content is changed and not empty
+    if (isContentUpdated) {
+      const updatedTodo: Todo = {
+        ...todo,
+        lastModifiedAt: new Date().toISOString(),
+        content: trimmedContent,
+      };
+
+      if (isDone) {
+        dispatch(updateDone(updatedTodo));
+      } else {
+        dispatch(updateTodo(updatedTodo));
+      }
+    }
+
+    // update innerText to show trimmed content or restore the original content if trimmed result is empty string
+    e.currentTarget.innerText = isContentUpdated
+      ? trimmedContent
+      : todo.content;
+  };
+
   // move event
   const isOnTop = index === 0;
   const isOnBottom = index === totalLength - 1;
@@ -70,6 +98,7 @@ function TodoItem({
           className="item-content"
           contentEditable
           suppressContentEditableWarning
+          onBlur={(e) => updateContent(e)}
         >
           {todo.content}
         </div>
