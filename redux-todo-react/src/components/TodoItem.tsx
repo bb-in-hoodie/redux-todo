@@ -58,6 +58,13 @@ function TodoItem({
       : todo.content;
   };
 
+  const handleContentKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter" || e.key === "Escape") {
+      e.preventDefault();
+      e.currentTarget.blur();
+    }
+  };
+
   // move event
   const isOnTop = index === 0;
   const isOnBottom = index === totalLength - 1;
@@ -83,10 +90,12 @@ function TodoItem({
           readOnly
         />
         <div
+          role="none"
           className="item-content"
           contentEditable
           suppressContentEditableWarning
           onBlur={(e) => updateContent(e)}
+          onKeyDown={(e) => handleContentKeyDown(e)}
         >
           {todo.content}
         </div>
