@@ -29,19 +29,11 @@ function TodoItem({
 
   const handleCheckboxClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (isDone) {
-      dispatch(setAsTodo(todo));
-    } else {
-      dispatch(setAsDone(todo));
-    }
+    dispatch(isDone ? setAsTodo(todo) : setAsDone(todo));
   };
 
   const handleDeleteClick = () => {
-    if (isDone) {
-      dispatch(removeDone(todo));
-    } else {
-      dispatch(removeTodo(todo));
-    }
+    dispatch(isDone ? removeDone(todo) : removeTodo(todo));
   };
 
   const updateContent = (e: React.FocusEvent<HTMLDivElement, Element>) => {
@@ -57,11 +49,7 @@ function TodoItem({
         content: trimmedContent,
       };
 
-      if (isDone) {
-        dispatch(updateDone(updatedTodo));
-      } else {
-        dispatch(updateTodo(updatedTodo));
-      }
+      dispatch(isDone ? updateDone(updatedTodo) : updateTodo(updatedTodo));
     }
 
     // update innerText to show trimmed content or restore the original content if trimmed result is empty string
