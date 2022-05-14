@@ -9,6 +9,7 @@
 
   .main-wrapper {
     display: flex;
+    min-width: 0;
     height: 100%;
     align-items: center;
     flex: 1 1;
@@ -59,10 +60,19 @@
     font-size: 11pt;
     font-weight: 400;
     line-height: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -ms-overflow-style: none; // IE and Edge
+    scrollbar-width: none; // Firefox
 
     &:focus {
       outline: 2px solid $common-color-ts-blue;
       border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 
