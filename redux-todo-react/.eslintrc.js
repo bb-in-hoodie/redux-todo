@@ -29,6 +29,8 @@ module.exports = {
     "no-console": "off",
     "no-alert": "off",
     "no-param-reassign": "off",
+    "no-unused-vars": "warn",
+    "no-useless-return": "off",
     "function-paren-newline": ["error", "multiline-arguments"],
     "lines-between-class-members": [
       "error",
