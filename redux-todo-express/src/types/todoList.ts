@@ -1,15 +1,18 @@
+import { v4 as uuidV4 } from "uuid";
 import { Todo } from "./todo";
 
 export class TodoList {
+  uuid: string;
   name: string;
   createdAt: string; // ISO format date
   lastModifiedAt: string; // ISO format date
   todos: Todo[];
   dones: Todo[];
 
-  constructor(name: string) {
+  constructor(name: string, uuid = uuidV4()) {
     const createdAt = new Date().toISOString();
 
+    this.uuid = uuid;
     this.name = name;
     this.createdAt = createdAt;
     this.lastModifiedAt = createdAt;
