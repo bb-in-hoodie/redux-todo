@@ -1,26 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../redux/hooks";
+import { getTodoList } from "../apis/todoListApi";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setTodoList } from "../redux/reducers/todoListReducer";
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
 import "./Container.scss";
 
 function Container(): JSX.Element {
+  // redux
+  const dispatch = useAppDispatch();
+  const uuid = useAppSelector((state) => state.todoList.uuid);
   const todos = useAppSelector((state) => state.todoList.todos);
   const dones = useAppSelector((state) => state.todoList.dones);
+
+  // DB
   const [isSyncing, setIsSyncing] = useState(true);
   const [mainClassName, setMainClassName] = useState("syncing");
   const syncingClass = isSyncing ? "syncing" : "";
 
-  // TODO: remove 'syncing' class after syncing with DB
-  useEffect(() => {
-    setTimeout(() => setIsSyncing(false), 3200);
-  }, [setIsSyncing]);
-
+  // on initial mount, hide main and input until API response is arrived
   useEffect(() => {
     if (!isSyncing) {
       setTimeout(() => setMainClassName(""));
     }
   }, [isSyncing, setMainClassName]);
+
+  // fetch todo list data from the server if there is none
+  useEffect(() => {
+    if (uuid) {
+      setIsSyncing(false);
+      return;
+    }
+
+    (async () => {
+      try {
+        const { data } = await getTodoList();
+        dispatch(setTodoList(data));
+        setIsSyncing(false);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, [uuid, setIsSyncing]);
 
   return (
     <div className="cover">

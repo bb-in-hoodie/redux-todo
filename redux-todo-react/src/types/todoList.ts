@@ -1,6 +1,8 @@
 import { immerable } from "immer";
 import { Todo } from "./todo";
 
+export const DEFAULT_TODO_LIST = "default";
+
 export class TodoList {
   [immerable] = true; // needed to use a class in Redux
 

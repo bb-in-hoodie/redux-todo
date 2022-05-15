@@ -5,6 +5,9 @@ const todoListSlice = createSlice({
   name: "todoList",
   initialState: TodoList.createEmptyTodoList(),
   reducers: {
+    setTodoList: (_, action) => {
+      return action.payload;
+    },
     setName: (state, action) => {
       state.name = action.payload;
     },
@@ -77,6 +80,7 @@ const todoListSlice = createSlice({
 
 const { actions, reducer } = todoListSlice;
 export const {
+  setTodoList,
   setName,
   setCreatedAt,
   setLastModifiedAt,
