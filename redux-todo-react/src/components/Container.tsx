@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getTodoList } from "../apis/todoListApi";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setTodoList } from "../redux/reducers/todoListReducer";
+import { sleep } from "../utils/async";
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
 import "./Container.scss";
@@ -34,6 +35,7 @@ function Container(): JSX.Element {
 
     (async () => {
       try {
+        await sleep(2800); // sleep for a second to show DB sync message on purpose :P
         const { data } = await getTodoList();
         dispatch(setTodoList(data));
         setIsSyncing(false);
