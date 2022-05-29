@@ -1,3 +1,4 @@
+import debounce from "lodash/debounce";
 import {
   DEFAULT_TODO_LIST,
   TodoList,
@@ -5,11 +6,13 @@ import {
 } from "../types/todoList";
 import axiosInsance from "./axiosInstance";
 
+const UPDATE_WAITING_TIME = 3 * 1000; // in milliseconds
+
 export function getTodoList(name = DEFAULT_TODO_LIST) {
   return axiosInsance.get<TodoList>(`/todo-lists/${name}`);
 }
 
-export function updateTodoList(todoList: TodoList, name = DEFAULT_TODO_LIST) {
+function updateTodoList(todoList: TodoList, name = DEFAULT_TODO_LIST) {
   const payload = { ...todoList };
   // eslint-disable-next-line dot-notation
   delete payload["_id"];
@@ -19,3 +22,11 @@ export function updateTodoList(todoList: TodoList, name = DEFAULT_TODO_LIST) {
     payload
   );
 }
+
+export const debouncedUpdateTodoList = debounce(
+  updateTodoList,
+  UPDATE_WAITING_TIME,
+  {
+    leading: true,
+  }
+);
