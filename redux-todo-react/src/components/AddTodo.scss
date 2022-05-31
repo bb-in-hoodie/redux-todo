@@ -5,6 +5,7 @@ $inner-border-radius: 3px;
 
 .add-todo {
   display: flex;
+  flex: 0 0 auto;
   height: 58px;
   justify-content: space-between;
   align-items: center;

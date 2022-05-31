@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import bodyParser from "body-parser";
 import { closeClient, getCollection } from "./db/mongo";
 import todoListRouter from "./routers/todoListRouter";
@@ -11,6 +12,7 @@ app.listen(port, () => {
 });
 
 // middlewares
+app.use(cors({ origin: "http://localhost:8080" })); // TODO: set a real origin url
 app.use(bodyParser.json()); // parsing application/json
 
 // register routers

@@ -1,6 +1,27 @@
 @import "../styles/common.scss";
 
+$header-height: 56px;
+
+.cover {
+  position: relative;
+
+  .status {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 8px);
+    color: $common-color-ts-blue-darker;
+    opacity: 0%;
+    transition: opacity 1s;
+
+    &.syncing {
+      animation: blinking 1.5s ease 0s infinite;
+    }
+  }
+}
+
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 480px;
@@ -10,10 +31,16 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 4px 4px 12px $common-color-shadow-black-darker;
+  transition: height 0.8s ease;
+
+  &.syncing {
+    height: $header-height;
+  }
 
   header {
     display: flex;
-    height: 56px;
+    flex: 0 0 auto;
+    height: $header-height;
     box-sizing: border-box;
     overflow: hidden;
     align-items: center;
@@ -37,5 +64,21 @@
     padding: 24px 16px;
     flex: auto;
     overflow: hidden scroll;
+
+    &.syncing {
+      overflow: hidden;
+    }
+  }
+}
+
+@keyframes blinking {
+  0% {
+    opacity: 0%;
+  }
+  45%, 55% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
   }
 }
