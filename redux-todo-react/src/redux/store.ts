@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { updateDb } from "./middlewares/mongoMiddleware";
+import appStateReducer from "./reducers/appStateReducer";
 import todoListReducer from "./reducers/todoListReducer";
 
 const store = configureStore({
   reducer: {
+    appState: appStateReducer,
     todoList: todoListReducer,
   },
   middleware: (getDefaultMiddleware) =>
