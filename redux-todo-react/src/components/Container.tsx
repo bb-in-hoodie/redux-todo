@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getTodoList } from "../apis/todoListApi";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import {
+  clearPollingTimeout,
+  setPollingTimeoutId,
+} from "../redux/reducers/appStateReducer";
 import { setTodoList } from "../redux/reducers/todoListReducer";
 import { sleep } from "../utils/async";
+import { recursivePoll } from "../utils/polling";
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
 import "./Container.scss";
@@ -44,6 +49,14 @@ function Container(): JSX.Element {
       }
     })();
   }, [uuid, setIsSyncing]);
+
+  // schedule polling on start
+  useEffect(() => {
+    recursivePoll(
+      (id) => dispatch(setPollingTimeoutId(id)),
+      () => dispatch(clearPollingTimeout())
+    );
+  }, []);
 
   return (
     <div className="cover">
