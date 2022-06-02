@@ -1,61 +1,55 @@
 import React, { useEffect, useState } from "react";
-import { getTodoList } from "../apis/todoListApi";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import {
-  clearPollingTimeout,
-  setPollingTimeoutId,
-} from "../redux/reducers/appStateReducer";
-import { setTodoList } from "../redux/reducers/todoListReducer";
+import { setIsSyncingWithDb } from "../redux/reducers/appStateReducer";
+import { createSchedulePollingThunk } from "../redux/thunks/pollingThunk";
+import { createSyncingThunk } from "../redux/thunks/syncingThunk";
 import { sleep } from "../utils/async";
-import { recursivePoll } from "../utils/polling";
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
 import "./Container.scss";
 
 function Container(): JSX.Element {
-  // redux
   const dispatch = useAppDispatch();
+
+  // todoList
   const uuid = useAppSelector((state) => state.todoList.uuid);
   const todos = useAppSelector((state) => state.todoList.todos);
   const dones = useAppSelector((state) => state.todoList.dones);
 
   // DB
-  const [isSyncing, setIsSyncing] = useState(true);
+  const isSyncingWithDb = useAppSelector(
+    (state) => state.appState.isSyncingWithDb
+  );
   const [mainClassName, setMainClassName] = useState("syncing");
-  const syncingClass = isSyncing ? "syncing" : "";
+  const syncingClass = isSyncingWithDb ? "syncing" : "";
 
   // on initial mount, hide main and input until API response is arrived
   useEffect(() => {
-    if (!isSyncing) {
+    if (!isSyncingWithDb) {
       setTimeout(() => setMainClassName(""));
     }
-  }, [isSyncing, setMainClassName]);
+  }, [isSyncingWithDb, setMainClassName]);
 
   // fetch todo list data from the server if there is none
   useEffect(() => {
     if (uuid) {
-      setIsSyncing(false);
+      dispatch(setIsSyncingWithDb(false));
       return;
     }
 
     (async () => {
-      try {
-        await sleep(2800); // sleep for a second to show DB sync message on purpose :P
-        const { data } = await getTodoList();
-        dispatch(setTodoList(data));
-        setIsSyncing(false);
-      } catch (e) {
-        console.error(e);
-      }
+      // because network is too fast these days,
+      // you need to set an arbitrary sleep to observe syncing-with-db message
+      await sleep(2000);
+
+      // fetching todoList from server and apply it to client
+      dispatch(createSyncingThunk());
     })();
-  }, [uuid, setIsSyncing]);
+  }, [uuid]);
 
   // schedule polling on start
   useEffect(() => {
-    recursivePoll(
-      (id) => dispatch(setPollingTimeoutId(id)),
-      () => dispatch(clearPollingTimeout())
-    );
+    dispatch(createSchedulePollingThunk());
   }, []);
 
   return (

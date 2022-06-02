@@ -31,6 +31,7 @@ module.exports = {
     "no-param-reassign": "off",
     "no-unused-vars": "warn",
     "no-useless-return": "off",
+    "no-use-before-define": ["error", { functions: false }],
     "function-paren-newline": ["error", "multiline-arguments"],
     "lines-between-class-members": [
       "error",
