@@ -150,8 +150,7 @@ router.put("/:name", async (req, res) => {
   }
 
   try {
-    // update 'lastModifiedAt' value and apply the udpate
-    todoList.lastModifiedAt = new Date().toISOString();
+    // apply the update
     const { value } = await updateTodoList(name, todoList);
     const original = { ...value };
     delete original["_id"];
