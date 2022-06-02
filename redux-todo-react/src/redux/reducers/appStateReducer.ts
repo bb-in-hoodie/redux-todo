@@ -5,17 +5,21 @@ const appStateSlice = createSlice({
   name: "appState",
   initialState: new AppState(),
   reducers: {
-    setPollingTimeoutId: (state, action) => {
-      state.pollingTimeoutId = action.payload;
-    },
-    clearPollingTimeout: (state) => {
+    updatePollingTimeoutId: (state, action) => {
+      // if there is a scheduled polling, cancel it
       if (state.pollingTimeoutId) {
         clearTimeout(state.pollingTimeoutId);
       }
+
+      // update timeoutId
+      state.pollingTimeoutId = action.payload;
+    },
+    setIsSyncingWithDb: (state, action) => {
+      state.isSyncingWithDb = action.payload;
     },
   },
 });
 
 const { actions, reducer } = appStateSlice;
-export const { setPollingTimeoutId, clearPollingTimeout } = actions;
+export const { updatePollingTimeoutId, setIsSyncingWithDb } = actions;
 export default reducer;
