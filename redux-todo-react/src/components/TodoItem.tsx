@@ -10,6 +10,7 @@ import {
   updateTodo,
 } from "../redux/reducers/todoListReducer";
 import { Todo } from "../types/todo";
+import { getTimestampUpdatedCopy } from "../utils/timestamp";
 import "./TodoItem.scss";
 
 export type TodoItemProps = {
@@ -29,11 +30,13 @@ function TodoItem({
 
   const handleCheckboxClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(isDone ? setAsTodo(todo) : setAsDone(todo));
+    const updatedTodo = getTimestampUpdatedCopy(todo);
+    dispatch(isDone ? setAsTodo(updatedTodo) : setAsDone(updatedTodo));
   };
 
   const handleDeleteClick = () => {
-    dispatch(isDone ? removeDone(todo) : removeTodo(todo));
+    const updatedTodo = getTimestampUpdatedCopy(todo);
+    dispatch(isDone ? removeDone(updatedTodo) : removeTodo(updatedTodo));
   };
 
   const updateContent = (e: React.FocusEvent<HTMLDivElement, Element>) => {
@@ -43,12 +46,10 @@ function TodoItem({
 
     // update todo if content is changed and not empty
     if (isContentUpdated) {
-      const updatedTodo: Todo = {
+      const updatedTodo = getTimestampUpdatedCopy({
         ...todo,
-        lastModifiedAt: new Date().toISOString(),
         content: trimmedContent,
-      };
-
+      });
       dispatch(isDone ? updateDone(updatedTodo) : updateTodo(updatedTodo));
     }
 
@@ -74,7 +75,8 @@ function TodoItem({
       return;
     }
 
-    dispatch(moveTodo({ todo, amount }));
+    const updatedTodo = getTimestampUpdatedCopy(todo);
+    dispatch(moveTodo({ todo: updatedTodo, amount }));
   };
 
   return (
