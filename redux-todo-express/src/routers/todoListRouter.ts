@@ -35,12 +35,40 @@ router.get("/:name", async (req, res) => {
     if (result) {
       res.status(200).json(result);
     } else {
-      res
-        .status(404)
-        .json({
-          error: `failed to find a todo list with the given name`,
-          name,
-        });
+      res.status(404).json({
+        error: `failed to find a todo list with the given name`,
+        name,
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      error: "failed to find a todo list due to a server error",
+      message: (e as any).message ?? undefined,
+    });
+  }
+});
+
+// GET "/todo-lists/{name}/last-modified-at"
+// - return lastModifiedAt value of a todo list
+router.get("/:name/last-modified-at", async (req, res) => {
+  const name = trimName(req.params.name);
+
+  // path validation
+  if (!name) {
+    res.status(404).json({ error: `invalid todo list name` });
+    return;
+  }
+
+  try {
+    const result = await findTodoListByName(name);
+    if (result) {
+      const { lastModifiedAt } = result;
+      res.status(200).json({ lastModifiedAt });
+    } else {
+      res.status(404).json({
+        error: `failed to find a todo list with the given name`,
+        name,
+      });
     }
   } catch (e) {
     res.status(500).json({
