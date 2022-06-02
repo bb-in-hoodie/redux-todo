@@ -4,8 +4,15 @@ import { debouncedUpdateTodoList } from "../../apis/todoListApi";
 export const updateDb: Middleware = (store) => (next) => async (action) => {
   next(action);
 
-  // skip if it's state initializing process
-  if (action.type === "todoList/setTodoList") {
+  // skip if
+  // - it's not todoList related action
+  // - it's initializing process (setTodoList)
+  // - it's updating timestamp (setLastModifiedAt)
+  const isTodoListUpdated =
+    /^todoList/.test(action.type) &&
+    !/^todoList\/(setTodoList|setLastModifiedAt)/.test(action.type);
+
+  if (!isTodoListUpdated) {
     return;
   }
 

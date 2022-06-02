@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { updateDb } from "./middlewares/mongoMiddleware";
+import { updateTimestamp } from "./middlewares/timestampMiddleware";
 import appStateReducer from "./reducers/appStateReducer";
 import todoListReducer from "./reducers/todoListReducer";
 
@@ -11,7 +12,9 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(updateDb),
+    })
+      .concat(updateTimestamp)
+      .concat(updateDb),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
