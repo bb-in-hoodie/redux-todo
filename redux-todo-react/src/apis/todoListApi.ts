@@ -12,6 +12,12 @@ export function getTodoList(name = DEFAULT_TODO_LIST) {
   return axiosInsance.get<TodoList>(`/todo-lists/${name}`);
 }
 
+export function getLastModifiedAt(name = DEFAULT_TODO_LIST) {
+  return axiosInsance.get<Pick<TodoList, "lastModifiedAt">>(
+    `/todo-lists/${name}/last-modified-at`
+  );
+}
+
 function updateTodoList(todoList: TodoList, name = DEFAULT_TODO_LIST) {
   const payload = { ...todoList };
   // eslint-disable-next-line dot-notation
