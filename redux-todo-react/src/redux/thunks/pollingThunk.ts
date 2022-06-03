@@ -7,17 +7,34 @@ import { createSyncingThunk } from "./syncingThunk";
 export const POLLING_DELAY = 10 * 1000; // in milliseconds
 
 /**
- * 'createPollingThunk' and 'createSchedulePollingThunk' will keep dispatching each other
- * so that polling can be conducted every time POLLING_DELAY elapsed
- * unless there is an interruption (outer call of 'createSchedulePollingThunk')
+ * 'createPollingThunk' and 'createTimestampComparingThunk' will keep dispatching each other
+ * so that polling can be conducted every time POLLING_DELAY elapsed.
+ * Unless there is an interruption (ex. outer call of 'createPollingThunk')
  */
 
-function createPollingThunk(): ThunkAction<
+// keep polling to check if client state is synced with server state
+export function createPollingThunk(): ThunkAction<
   void,
   RootState,
   unknown,
   AnyAction
 > {
+  return (dispatch) => {
+    // schedule next polling
+    const timeoutId = setTimeout(
+      () => dispatch(createTimestampComparingThunk()),
+      POLLING_DELAY
+    );
+
+    // if there was already a scheduled polling, that would be cancelled and replaced with the new one
+    dispatch(updatePollingTimeoutId(timeoutId));
+  };
+}
+
+// compare timestamp of client and server and update state if client state is stale
+export function createTimestampComparingThunk(
+  shouldSchedule = true
+): ThunkAction<void, RootState, unknown, AnyAction> {
   return async (dispatch, getState) => {
     try {
       // fetch server-side lastModifiedAt value
@@ -35,26 +52,13 @@ function createPollingThunk(): ThunkAction<
         dispatch(createSyncingThunk());
       }
     } catch (e) {
+      console.error("an error occured during comparing tiemstamp with server");
       console.error(e);
     } finally {
-      // request scheduling the next polling
-      dispatch(createSchedulePollingThunk());
+      if (shouldSchedule) {
+        // request scheduling the next polling
+        dispatch(createPollingThunk());
+      }
     }
-  };
-}
-
-export function createSchedulePollingThunk(): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
-> {
-  return (dispatch) => {
-    // schedule next polling
-    const timeoutId = setTimeout(
-      () => dispatch(createPollingThunk()),
-      POLLING_DELAY
-    );
-    dispatch(updatePollingTimeoutId(timeoutId));
   };
 }

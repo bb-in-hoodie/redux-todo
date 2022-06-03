@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setIsSyncingWithDb } from "../redux/reducers/appStateReducer";
-import { createSchedulePollingThunk } from "../redux/thunks/pollingThunk";
+import { createPollingThunk } from "../redux/thunks/pollingThunk";
 import { createSyncingThunk } from "../redux/thunks/syncingThunk";
 import { sleep } from "../utils/async";
 import AddTodo from "./AddTodo";
@@ -49,7 +49,7 @@ function Container(): JSX.Element {
 
   // schedule polling on start
   useEffect(() => {
-    dispatch(createSchedulePollingThunk());
+    dispatch(createPollingThunk());
   }, []);
 
   return (
