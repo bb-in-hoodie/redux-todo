@@ -1,4 +1,3 @@
-import { getLastModifiedAt } from "../../apis/todoListApi";
 import { checkClientStaleness } from "../../utils/timestamp";
 import { updatePollingTimeoutId } from "../reducers/appStateReducer";
 import type { AppThunk } from "../store";
