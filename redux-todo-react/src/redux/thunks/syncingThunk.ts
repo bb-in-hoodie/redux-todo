@@ -1,15 +1,9 @@
-import { AnyAction, ThunkAction } from "@reduxjs/toolkit";
 import { getTodoList } from "../../apis/todoListApi";
 import { setIsSyncingWithDb } from "../reducers/appStateReducer";
 import { setTodoList } from "../reducers/todoListReducer";
-import { RootState } from "../store";
+import type { AppThunk } from "../store";
 
-export function createSyncingThunk(): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
-> {
+export function createSyncingThunk(): AppThunk {
   return async (dispatch) => {
     try {
       dispatch(setIsSyncingWithDb(true)); // mark as syncing

@@ -1,7 +1,7 @@
-import { AnyAction, ThunkAction } from "@reduxjs/toolkit";
 import { getLastModifiedAt } from "../../apis/todoListApi";
+import { checkClientStaleness } from "../../utils/timestamp";
 import { updatePollingTimeoutId } from "../reducers/appStateReducer";
-import { RootState } from "../store";
+import type { AppThunk } from "../store";
 import { createSyncingThunk } from "./syncingThunk";
 
 export const POLLING_DELAY = 10 * 1000; // in milliseconds
@@ -13,12 +13,7 @@ export const POLLING_DELAY = 10 * 1000; // in milliseconds
  */
 
 // keep polling to check if client state is synced with server state
-export function createPollingThunk(): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
-> {
+export function createPollingThunk(): AppThunk {
   return (dispatch) => {
     // schedule next polling
     const timeoutId = setTimeout(
@@ -31,34 +26,27 @@ export function createPollingThunk(): ThunkAction<
   };
 }
 
-// compare timestamp of client and server and update state if client state is stale
-export function createTimestampComparingThunk(
-  shouldSchedule = true
-): ThunkAction<void, RootState, unknown, AnyAction> {
+// compare timestamp of client and server to update state if client state is stale
+export function createTimestampComparingThunk(): AppThunk {
   return async (dispatch, getState) => {
     try {
-      // fetch server-side lastModifiedAt value
-      const { data } = await getLastModifiedAt();
-      const { lastModifiedAt } = data;
-      const serverModifiedTime = new Date(lastModifiedAt);
-
-      // compare it with client-side lastModifiedAt value
+      // if client has outdated data, replace it with server-side one
       const { todoList } = getState();
       const clientModifiedTime = new Date(todoList.lastModifiedAt);
+      const isClientStale = await checkClientStaleness(clientModifiedTime);
 
-      // if client has outdated data, replace it with server-side one
-      if (clientModifiedTime < serverModifiedTime) {
+      if (isClientStale) {
         console.log("updating todoList since client has a stale one");
         dispatch(createSyncingThunk());
       }
     } catch (e) {
-      console.error("an error occured during comparing tiemstamp with server");
+      console.error(
+        "an error occurred during comparing timestamps of client and server"
+      );
       console.error(e);
     } finally {
-      if (shouldSchedule) {
-        // request scheduling the next polling
-        dispatch(createPollingThunk());
-      }
+      // request scheduling the next polling
+      dispatch(createPollingThunk());
     }
   };
 }

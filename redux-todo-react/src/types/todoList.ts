@@ -41,4 +41,5 @@ export interface TodoListUpdateResponse {
   foundBy: { name: string };
   original: TodoList;
   updated: TodoList;
+  error?: string; // only if server returns an error
 }
