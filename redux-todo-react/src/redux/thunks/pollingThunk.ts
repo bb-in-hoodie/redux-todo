@@ -20,12 +20,12 @@ export function createPollingThunk(): AppThunk {
       POLLING_DELAY
     );
 
-    // if there was already a scheduled polling, that would be cancelled and replaced with the new one
+    // if there was an already scheduled polling, that would be cancelled and replaced with the new one
     dispatch(updatePollingTimeoutId(timeoutId));
   };
 }
 
-// compare timestamp of client and server to update state if client state is stale
+// compare timestamps of client and server to update state if client state is stale
 export function createTimestampComparingThunk(): AppThunk {
   return async (dispatch, getState) => {
     try {

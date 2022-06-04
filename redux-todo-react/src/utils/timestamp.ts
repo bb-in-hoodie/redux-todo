@@ -29,7 +29,7 @@ export async function checkClientStaleness(clientModifiedTime: Date) {
     // compare it with client-side lastModifiedAt value
     return clientModifiedTime < serverModifiedTime; // true if client state is stale
   } catch (e) {
-    console.error("an error occured during comparing tiemstamp with server");
+    console.error("an error occurred during comparing tiemstamp with server");
     throw e;
   }
 }

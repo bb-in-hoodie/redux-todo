@@ -8,7 +8,7 @@ export const syncWithDb: AppMiddleware =
   (store) => (next) => async (action) => {
     // skip this middleware if
     // - it's not todoList related action
-    // - it's initializing process (setTodoList)
+    // - it's initializing process or applying server state to client (setTodoList)
     // - it's updating timestamp (setLastModifiedAt)
     const isTodoListUpdated =
       /^todoList/.test(action.type) &&
@@ -26,7 +26,7 @@ export const syncWithDb: AppMiddleware =
       const isClientStale = await checkClientStaleness(clientModifiedTime);
 
       // if client has outdated data
-      // - abort current updating process (don't run 'next' in this case)
+      // - abort current updating process (don't run 'next' and return early)
       // - replace client's outdated state with server's newer state
       if (isClientStale) {
         console.log(
@@ -44,7 +44,7 @@ export const syncWithDb: AppMiddleware =
       // - process the action first so that the action can be applied to the store
       next(action);
 
-      // - then update db
+      // - then update db (this async process should not block the whole redux pipeline)
       const result = await debouncedUpdateTodoList(store.getState().todoList);
       if (result && result.status !== 200) {
         throw new Error(result.data?.error ?? "");
