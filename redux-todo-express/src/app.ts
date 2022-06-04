@@ -12,7 +12,7 @@ app.listen(port, () => {
 });
 
 // middlewares
-app.use(cors({ origin: "http://localhost:8080" })); // TODO: set a real origin url
+app.use(cors({ origin: RegExp("^http(s?)://localhost") })); // TODO: set a real origin url
 app.use(bodyParser.json()); // parsing application/json
 
 // register routers
