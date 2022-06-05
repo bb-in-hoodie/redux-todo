@@ -16,7 +16,7 @@ app.use(cors({ origin: RegExp("^http(s?)://localhost") })); // TODO: set a real 
 app.use(bodyParser.json()); // parsing application/json
 
 // register routers
-app.use("/todo-lists", todoListRouter);
+app.use("/api/todo-lists", todoListRouter);
 
 // fallback
 app.get("*", (_, res) => {
