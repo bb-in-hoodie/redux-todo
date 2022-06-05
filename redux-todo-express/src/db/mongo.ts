@@ -6,6 +6,8 @@ let mongoClient: MongoClient | null = null;
 let reduxTodoDb: Db | null = null;
 let todoCollection: Collection | null = null;
 
+const MONGODB_URL = process.env?.MONGODB_URL ?? "localhost:27017";
+
 async function getClient() {
   if (mongoClient) {
     return mongoClient;
@@ -13,7 +15,7 @@ async function getClient() {
 
   // TODO: use docker-compose internal address
   mongoClient = await MongoClient.connect(
-    "mongodb://root:redux-todo-mongo@localhost:27017/"
+    `mongodb://root:redux-todo-mongo@${MONGODB_URL}/`
   );
   return mongoClient;
 }
