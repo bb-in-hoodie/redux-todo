@@ -22,5 +22,25 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:redux-todo-mongo@redux-todo-mongo:27017/
 
+  redux-todo-express:
+    build:
+      context: ./redux-todo-express
+      dockerfile: deploy/Dockerfile
+    restart: always
+    depends_on:
+      - redux-todo-mongo
+    environment:
+      MONGODB_URL: redux-todo-mongo:27017
+
+  redux-todo-react:
+    build:
+      context: ./redux-todo-react
+      dockerfile: deploy/Dockerfile
+    ports:
+      - 80:80
+    restart: always
+    depends_on:
+      - redux-todo-express
+
 volumes:
   redux-todo-db:
